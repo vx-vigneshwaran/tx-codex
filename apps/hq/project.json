@@ -1,0 +1,14 @@
+{
+  "name": "hq",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/hq/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node --experimental-strip-types apps/hq/src/server.ts"
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "id",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/id/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node --experimental-strip-types apps/id/src/server.ts"
+      }
+    }
+  }
+}

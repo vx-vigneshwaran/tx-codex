@@ -1,0 +1,24 @@
+{
+  "name": "vezham-platform",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "packageManager": "pnpm@10.0.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "nx": "nx",
+    "dev:id": "nx run id:serve",
+    "dev:hq": "nx run hq:serve",
+    "dev:apps": "nx run apps:serve",
+    "dev:schoolos": "nx run schoolos:serve",
+    "test": "node --experimental-strip-types --test tests/**/*.test.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.1",
+    "nx": "^20.8.1",
+    "typescript": "^5.8.3"
+  }
+}
