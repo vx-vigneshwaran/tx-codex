@@ -24,4 +24,26 @@ CREATE TABLE IF NOT EXISTS oauth_client (
   app TEXT PRIMARY KEY,
   redirect_uris TEXT[] NOT NULL,
   scopes TEXT[] NOT NULL
+
+CREATE TABLE users (
+  id TEXT PRIMARY KEY,
+  email TEXT
+);
+
+CREATE TABLE tenants (
+  id TEXT PRIMARY KEY,
+  name TEXT,
+  slug TEXT UNIQUE
+);
+
+CREATE TABLE memberships (
+  user_id TEXT,
+  tenant_id TEXT,
+  role TEXT
+);
+
+CREATE TABLE app_access (
+  user_id TEXT,
+  app_id TEXT,
+  scopes TEXT
 );
