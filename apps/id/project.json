@@ -6,9 +6,15 @@
   "targets": {
     "serve": {
       "executor": "nx:run-commands",
-      "options": {
-        "command": "node --experimental-strip-types apps/id/src/server.ts"
-      }
+      "options": { "cwd": "apps/id", "command": "pnpm dev" }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": { "cwd": "apps/id", "command": "pnpm build" }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": { "cwd": "apps/id", "command": "pnpm typecheck" }
     }
   }
 }

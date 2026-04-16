@@ -1,25 +1,20 @@
-type TenantOption = {
-  slug: string;
-  name: string;
-};
+import { Select, SelectItem } from "@heroui/react";
 
-export function WorkspaceSwitcher({ tenants, currentSlug }: { tenants: TenantOption[]; currentSlug?: string }) {
+type Tenant = { id: string; slug: string; name: string };
+
+export function WorkspaceSwitcher(props: { tenants: Tenant[]; currentSlug: string }) {
   return (
-    <div className="workspace-switcher">
-      <label htmlFor="workspace">Workspace</label>
-      <select
-        id="workspace"
-        value={currentSlug}
-        onChange={(event) => {
-          window.location.href = `/t/${event.target.value}`;
-        }}
-      >
-        {tenants.map((tenant) => (
-          <option key={tenant.slug} value={tenant.slug}>
-            {tenant.name}
-          </option>
-        ))}
-      </select>
-    </div>
+    <Select
+      label="Workspace"
+      selectedKeys={[props.currentSlug]}
+      onSelectionChange={(keys) => {
+        const [slug] = [...keys].map(String);
+        if (slug) window.location.href = `/t/${slug}`;
+      }}
+    >
+      {props.tenants.map((tenant) => (
+        <SelectItem key={tenant.slug}>{tenant.name}</SelectItem>
+      ))}
+    </Select>
   );
 }

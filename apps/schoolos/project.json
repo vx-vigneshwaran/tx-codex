@@ -6,9 +6,15 @@
   "targets": {
     "serve": {
       "executor": "nx:run-commands",
-      "options": {
-        "command": "node --experimental-strip-types apps/schoolos/src/server.ts"
-      }
+      "options": { "cwd": "apps/schoolos", "command": "pnpm dev" }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": { "cwd": "apps/schoolos", "command": "pnpm build" }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": { "cwd": "apps/schoolos", "command": "pnpm typecheck" }
     }
   }
 }

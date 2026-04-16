@@ -1,20 +1,32 @@
-# Vezham SaaS Monorepo (TypeScript + Nx Bootstrap)
+# Vezham Platform (TS + Nx + TanStack Start + Vite + HeroUI + Better Auth)
 
-This repository provides a runnable **TypeScript + Nx** bootstrap for the Vezham identity + multi-tenant architecture.
+This repo is rebuilt from scratch for a **solo-app architecture** using Nx for orchestration.
 
-## Apps
+## Apps (all standalone)
 
-- `apps/id`: identity app (login + OAuth authorize)
-- `apps/hq`: tenant-aware app
-- `apps/apps`: additional app endpoint
-- `apps/schoolos`: additional app endpoint
+- `id` → central identity (`id.vezham.com`) with Better Auth + OAuth authorize endpoint.
+- `hq` → standalone product app (`hq.vezham.com`).
+- `apps` → standalone product app (`apps.vezham.com`).
+- `schoolos` → standalone product app (`schoolos.vezham.com`).
 
-## Shared packages
+Each app has its own:
 
-- `packages/core`: typed auth, OAuth, session, and tenant helpers
-- `packages/db`: Neon/Postgres schema + Better Auth adapter example
+- `package.json`
+- `vite.config.ts`
+- `tsconfig.json`
+- `.env.example`
+- source tree
 
-## Nx quick start
+## Stack
+
+- TypeScript
+- Nx (pinned to latest stable major/minor in root devDependencies)
+- TanStack Start + Vite
+- HeroUI v3
+- Better Auth
+- Neon Postgres
+
+## Run
 
 ```bash
 pnpm install
@@ -24,38 +36,14 @@ pnpm dev:apps
 pnpm dev:schoolos
 ```
 
-Equivalent Nx commands:
-
-```bash
-pnpm nx run id:serve
-pnpm nx run hq:serve
-```
-
-## OAuth flow
-
-1. `POST /login` on `id` creates session.
-2. SSO cookie is set with `Domain=.vezham.com`, `HttpOnly`, `Secure`, `SameSite=Lax`.
-3. App redirects to `GET /api/oauth/authorize?app=hq&redirect=...`.
-4. `id` validates session and redirect allowlist.
-5. `id` issues short-lived JWT with `sub`, `app`, `scopes`, `exp`.
-6. `hq` verifies token and enforces tenant membership on `/t/:tenantSlug`.
-
-## Tenant isolation rules
-
-- Never trust tenant slug from frontend alone.
-- Validate membership server-side every request.
-- Filter data by tenant identifier in backend queries.
-
 ## Environment
 
-```env
-DATABASE_URL=postgres://...
-JWT_SECRET=replace-me
-BETTER_AUTH_SECRET=replace-me
-```
+Every value is read from environment variables (no hardcoded secrets).
+See each app's `.env.example`.
 
-## Test
+## Security baseline
 
-```bash
-pnpm test
-```
+- Better Auth cookie domain from env (expected `.vezham.com` in prod)
+- short-lived OAuth access tokens
+- strict redirect allowlist from env
+- tenant membership verified server-side for protected handlers
