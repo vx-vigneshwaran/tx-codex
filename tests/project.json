@@ -1,0 +1,14 @@
+{
+  "name": "tests",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "tests",
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node --experimental-strip-types --test tests/**/*.test.ts"
+      }
+    }
+  }
+}
