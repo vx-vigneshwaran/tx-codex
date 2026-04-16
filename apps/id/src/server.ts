@@ -5,7 +5,7 @@ import { createSession, getSession } from "../../../packages/core/src/sessions.t
 import { issueAccessToken, validateRedirect } from "../../../packages/core/src/oauth.ts";
 import { addMembership, createTenant } from "../../../packages/core/src/tenants.ts";
 
-const port = Number(process.env.PORT ?? 4000);
+const port = Number(process.env.PORT ?? 3000);
 const jwtSecret = process.env.JWT_SECRET ?? "dev-secret";
 
 createTenant({ id: crypto.randomUUID(), name: "Acme", slug: "acme" });
@@ -34,7 +34,7 @@ const server = http.createServer((req, res) => {
 
     if (!session) {
       res.statusCode = 302;
-      res.setHeader("Location", "https://id.vezham.com/login");
+      res.setHeader("Location", `${process.env.BETTER_AUTH_BASE_URL ?? `http://localhost:${port}`}/login`);
       res.end();
       return;
     }

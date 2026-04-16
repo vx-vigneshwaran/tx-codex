@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Button, Card, CardBody, HeroUIProvider } from "@heroui/react";
+import { Button, Card, CardContent } from "@heroui/react";
 import { WorkspaceSwitcher } from "./components/workspace-switcher";
 
 const tenants = [
@@ -10,28 +10,37 @@ const tenants = [
 
 function App() {
   const currentTenant = (import.meta.env.VITE_DEFAULT_TENANT_SLUG as string) || "acme";
-  const authorizeUrl = import.meta.env.VITE_IDP_AUTHORIZE_URL as string;
+  const authorizeUrl = (import.meta.env.VITE_IDP_AUTHORIZE_URL as string | undefined) || "http://localhost:3000/api/oauth/authorize";
   const callbackUrl = `${window.location.origin}/auth/callback`;
+  const tokenFromUrl = new URLSearchParams(window.location.search).get("token");
+
+  if (tokenFromUrl) {
+    sessionStorage.setItem("vezham_hq_token", tokenFromUrl);
+    window.history.replaceState({}, "", "/");
+  }
+
+  const isSignedIn = Boolean(tokenFromUrl || sessionStorage.getItem("vezham_hq_token"));
 
   return (
-    <HeroUIProvider>
-      <main style={{ padding: 24 }}>
-        <h1>HQ</h1>
-        <WorkspaceSwitcher tenants={tenants} currentSlug={currentTenant} />
-        <Card style={{ marginTop: 16 }}>
-          <CardBody>
+    <main style={{ padding: 24 }}>
+      <h1>HQ</h1>
+      <WorkspaceSwitcher tenants={tenants} currentSlug={currentTenant} />
+      <Card style={{ marginTop: 16 }}>
+        <CardContent>
+          {isSignedIn ? (
+            <p>Signed in via Vezham ID.</p>
+          ) : (
             <Button
-              color="primary"
               onPress={() => {
                 window.location.href = `${authorizeUrl}?app=hq&redirect=${encodeURIComponent(callbackUrl)}`;
               }}
             >
               Continue with Vezham ID
             </Button>
-          </CardBody>
-        </Card>
-      </main>
-    </HeroUIProvider>
+          )}
+        </CardContent>
+      </Card>
+    </main>
   );
 }
 

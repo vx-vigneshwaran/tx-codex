@@ -6,7 +6,8 @@ export function buildAuthorizeRedirect(input: {
   redirect: string;
 }): { status: number; location?: string; error?: string } {
   if (!input.sessionUserId) {
-    return { status: 302, location: `${process.env.BETTER_AUTH_BASE_URL}/login` };
+    const baseUrl = process.env.BETTER_AUTH_BASE_URL || "http://localhost:3000";
+    return { status: 302, location: `${baseUrl}/login` };
   }
 
   if (!validateAuthorizeRequest(input.app, input.redirect)) {

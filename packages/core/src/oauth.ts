@@ -3,9 +3,9 @@ import crypto from "node:crypto";
 type SupportedApp = "hq" | "apps" | "schoolos";
 
 const REDIRECT_ALLOWLIST: Record<SupportedApp, string[]> = {
-  hq: ["https://hq.vezham.com/auth/callback", "http://localhost:4001/auth/callback"],
-  apps: ["https://apps.vezham.com/auth/callback", "http://localhost:4002/auth/callback"],
-  schoolos: ["https://schoolos.vezham.com/auth/callback", "http://localhost:4003/auth/callback"],
+  hq: ["https://hq.vezham.com/auth/callback", "http://localhost:3001/auth/callback"],
+  apps: ["https://apps.vezham.com/auth/callback", "http://localhost:3002/auth/callback"],
+  schoolos: ["https://schoolos.vezham.com/auth/callback", "http://localhost:3003/auth/callback"],
 };
 
 const DEFAULT_SCOPES: Record<SupportedApp, string[]> = {

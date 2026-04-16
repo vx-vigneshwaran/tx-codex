@@ -17,6 +17,6 @@ test("issues and verifies short-lived tokens", () => {
 });
 
 test("checks redirect allowlist", () => {
-  assert.equal(validateRedirect("hq", "http://localhost:4001/auth/callback"), true);
+  assert.equal(validateRedirect("hq", "http://localhost:3001/auth/callback"), true);
   assert.equal(validateRedirect("hq", "https://evil.example/callback"), false);
 });

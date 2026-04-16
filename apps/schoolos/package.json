@@ -9,9 +9,6 @@
   },
   "dependencies": {
     "@heroui/react": "^3.0.0",
-    "@tanstack/react-router": "^1.120.5",
-    "@tanstack/start": "^1.120.5",
-    "better-auth": "^1.2.8",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   }

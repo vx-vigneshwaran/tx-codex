@@ -9,10 +9,16 @@ function listFromEnv(key: string): string[] {
     .filter(Boolean);
 }
 
+const defaultRedirectAllowlist: Record<AppName, string[]> = {
+  hq: ["https://hq.vezham.com/auth/callback", "http://localhost:3001/auth/callback"],
+  apps: ["https://apps.vezham.com/auth/callback", "http://localhost:3002/auth/callback"],
+  schoolos: ["https://schoolos.vezham.com/auth/callback", "http://localhost:3003/auth/callback"],
+};
+
 const redirectAllowlist: Record<AppName, string[]> = {
-  hq: listFromEnv("REDIRECT_ALLOWLIST_HQ"),
-  apps: listFromEnv("REDIRECT_ALLOWLIST_APPS"),
-  schoolos: listFromEnv("REDIRECT_ALLOWLIST_SCHOOLOS"),
+  hq: listFromEnv("REDIRECT_ALLOWLIST_HQ").concat(defaultRedirectAllowlist.hq),
+  apps: listFromEnv("REDIRECT_ALLOWLIST_APPS").concat(defaultRedirectAllowlist.apps),
+  schoolos: listFromEnv("REDIRECT_ALLOWLIST_SCHOOLOS").concat(defaultRedirectAllowlist.schoolos),
 };
 
 export function validateAuthorizeRequest(app: string, redirect: string): boolean {
