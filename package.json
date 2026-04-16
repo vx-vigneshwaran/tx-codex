@@ -1,0 +1,6 @@
+
+{
+  "name": "vezham-complete",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"]
+}
