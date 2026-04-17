@@ -5,8 +5,10 @@ This repo is rebuilt from scratch for a **solo-app architecture** using Nx for o
 ## Apps (all standalone)
 
 - `id` → central identity (`id.vezham.com`) with Better Auth + OAuth authorize endpoint.
-- `hq` → standalone product app (`hq.vezham.com`).
-- `apps` → standalone product app (`apps.vezham.com`).
+- `hq` → tenant and workspace entrypoint (`hq.vezham.com`).
+- `drive` → file and folder workspace (`drive.vezham.com`).
+- `notes` → note-taking workspace (`notes.vezham.com`).
+- `remainder` → reminder workspace (`remainder.vezham.com`).
 - `schoolos` → standalone product app (`schoolos.vezham.com`).
 
 Each app has its own:
@@ -32,7 +34,9 @@ Each app has its own:
 pnpm install
 pnpm dev:id
 pnpm dev:hq
-pnpm dev:apps
+pnpm dev:drive
+pnpm dev:notes
+pnpm dev:remainder
 pnpm dev:schoolos
 ```
 

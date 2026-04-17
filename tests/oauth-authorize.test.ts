@@ -13,7 +13,9 @@ test("redirects unauthenticated users to login", () => {
 
 test("rejects invalid redirect", () => {
   process.env.REDIRECT_ALLOWLIST_HQ = "https://hq.vezham.com/auth/callback";
-  process.env.REDIRECT_ALLOWLIST_APPS = "https://apps.vezham.com/auth/callback";
+  process.env.REDIRECT_ALLOWLIST_DRIVE = "https://drive.vezham.com/auth/callback";
+  process.env.REDIRECT_ALLOWLIST_NOTES = "https://notes.vezham.com/auth/callback";
+  process.env.REDIRECT_ALLOWLIST_REMAINDER = "https://remainder.vezham.com/auth/callback";
   process.env.REDIRECT_ALLOWLIST_SCHOOLOS = "https://schoolos.vezham.com/auth/callback";
   process.env.JWT_SECRET = "dev-secret";
 

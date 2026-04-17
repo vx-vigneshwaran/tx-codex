@@ -1,7 +1,36 @@
 export const SSO_COOKIE_NAME = "vezham_session";
 
 export function buildSsoCookie(sessionId: string, maxAgeSeconds = 60 * 60 * 24 * 7): string {
-  return `${SSO_COOKIE_NAME}=${sessionId}; Domain=.vezham.com; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${maxAgeSeconds}`;
+  const cookieDomain = process.env.COOKIE_DOMAIN;
+  const isLocalCookieDomain = !cookieDomain || cookieDomain === "localhost";
+
+  const parts = [`${SSO_COOKIE_NAME}=${sessionId}`, "Path=/", "HttpOnly", "SameSite=Lax", `Max-Age=${maxAgeSeconds}`];
+
+  if (cookieDomain && !isLocalCookieDomain) {
+    parts.push(`Domain=${cookieDomain}`);
+  }
+
+  if (!isLocalCookieDomain) {
+    parts.push("Secure");
+  }
+
+  return parts.join("; ");
+}
+
+export function clearSsoCookie(): string {
+  const cookieDomain = process.env.COOKIE_DOMAIN;
+  const isLocalCookieDomain = !cookieDomain || cookieDomain === "localhost";
+  const parts = [`${SSO_COOKIE_NAME}=`, "Path=/", "HttpOnly", "SameSite=Lax", "Max-Age=0"];
+
+  if (cookieDomain && !isLocalCookieDomain) {
+    parts.push(`Domain=${cookieDomain}`);
+  }
+
+  if (!isLocalCookieDomain) {
+    parts.push("Secure");
+  }
+
+  return parts.join("; ");
 }
 
 export function parseCookies(cookieHeader = ""): Record<string, string> {

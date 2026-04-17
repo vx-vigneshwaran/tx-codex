@@ -1,16 +1,20 @@
 import crypto from "node:crypto";
 
-type SupportedApp = "hq" | "apps" | "schoolos";
+type SupportedApp = "hq" | "drive" | "notes" | "remainder" | "schoolos";
 
 const REDIRECT_ALLOWLIST: Record<SupportedApp, string[]> = {
   hq: ["https://hq.vezham.com/auth/callback", "http://localhost:3001/auth/callback"],
-  apps: ["https://apps.vezham.com/auth/callback", "http://localhost:3002/auth/callback"],
+  drive: ["https://drive.vezham.com/auth/callback", "http://localhost:3002/auth/callback"],
+  notes: ["https://notes.vezham.com/auth/callback", "http://localhost:3004/auth/callback"],
+  remainder: ["https://remainder.vezham.com/auth/callback", "http://localhost:3005/auth/callback"],
   schoolos: ["https://schoolos.vezham.com/auth/callback", "http://localhost:3003/auth/callback"],
 };
 
 const DEFAULT_SCOPES: Record<SupportedApp, string[]> = {
   hq: ["hq:access"],
-  apps: ["apps:access"],
+  drive: ["drive:access"],
+  notes: ["notes:access"],
+  remainder: ["remainder:access"],
   schoolos: ["schoolos:access"],
 };
 

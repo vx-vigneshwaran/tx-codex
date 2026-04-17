@@ -20,3 +20,8 @@ export function getSession(sessionId?: string): Session | null {
   if (!sessionId) return null;
   return sessions.get(sessionId) ?? null;
 }
+
+export function destroySession(sessionId?: string): void {
+  if (!sessionId) return;
+  sessions.delete(sessionId);
+}

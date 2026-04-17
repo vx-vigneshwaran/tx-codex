@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 
-type AppName = "hq" | "apps" | "schoolos";
+type AppName = "hq" | "drive" | "notes" | "remainder" | "schoolos";
 
 function listFromEnv(key: string): string[] {
   return (process.env[key] ?? "")
@@ -11,13 +11,17 @@ function listFromEnv(key: string): string[] {
 
 const defaultRedirectAllowlist: Record<AppName, string[]> = {
   hq: ["https://hq.vezham.com/auth/callback", "http://localhost:3001/auth/callback"],
-  apps: ["https://apps.vezham.com/auth/callback", "http://localhost:3002/auth/callback"],
+  drive: ["https://drive.vezham.com/auth/callback", "http://localhost:3002/auth/callback"],
+  notes: ["https://notes.vezham.com/auth/callback", "http://localhost:3004/auth/callback"],
+  remainder: ["https://remainder.vezham.com/auth/callback", "http://localhost:3005/auth/callback"],
   schoolos: ["https://schoolos.vezham.com/auth/callback", "http://localhost:3003/auth/callback"],
 };
 
 const redirectAllowlist: Record<AppName, string[]> = {
   hq: listFromEnv("REDIRECT_ALLOWLIST_HQ").concat(defaultRedirectAllowlist.hq),
-  apps: listFromEnv("REDIRECT_ALLOWLIST_APPS").concat(defaultRedirectAllowlist.apps),
+  drive: listFromEnv("REDIRECT_ALLOWLIST_DRIVE").concat(defaultRedirectAllowlist.drive),
+  notes: listFromEnv("REDIRECT_ALLOWLIST_NOTES").concat(defaultRedirectAllowlist.notes),
+  remainder: listFromEnv("REDIRECT_ALLOWLIST_REMAINDER").concat(defaultRedirectAllowlist.remainder),
   schoolos: listFromEnv("REDIRECT_ALLOWLIST_SCHOOLOS").concat(defaultRedirectAllowlist.schoolos),
 };
 

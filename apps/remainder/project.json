@@ -1,20 +1,20 @@
 {
-  "name": "apps",
+  "name": "remainder",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/apps/src",
+  "sourceRoot": "apps/remainder/src",
   "projectType": "application",
   "targets": {
     "serve": {
       "executor": "nx:run-commands",
-      "options": { "cwd": "apps/apps", "command": "pnpm dev" }
+      "options": { "cwd": "apps/remainder", "command": "pnpm dev" }
     },
     "build": {
       "executor": "nx:run-commands",
-      "options": { "cwd": "apps/apps", "command": "pnpm build" }
+      "options": { "cwd": "apps/remainder", "command": "pnpm build" }
     },
     "typecheck": {
       "executor": "nx:run-commands",
-      "options": { "cwd": "apps/apps", "command": "pnpm typecheck" }
+      "options": { "cwd": "apps/remainder", "command": "pnpm typecheck" }
     }
   }
 }
